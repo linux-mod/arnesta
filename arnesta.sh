@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TMP_FOLDER=$(mktemp -d)
-CONFIG_FILE='arnesta.conf'
+CONFIG_FILE='Arnesta.conf'
 CONFIGFOLDER='/root/.Arnesta'
 COIN_DAEMON='/usr/local/bin/Arnestad'
 COIN_CLI='/usr/local/bin/Arnesta-cli'
