@@ -6,7 +6,9 @@ This script will install **Arnesta**.
 ## Installation:
 ```
  git clone https://github.com/linux-mod/arnesta.git
-cd arnesta
+ cd arnesta
+ chmod 755 arnesta.sh
+ bash arnesta.sh
 ```
 ***
 
