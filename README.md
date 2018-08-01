@@ -49,7 +49,7 @@ Arnesta-cli getinfo
 Arnesta-cli masternode status
 Arnesta-cli mnsync status
 ```
-Also, if you want to check/start/stop **Polis** , run one of the following commands as **root**:
+Also, if you want to check/start/stop **Arnesta** , run one of the following commands as **root**:
 ```
 systemctl status ARNESTA.service #To check the service is running.
 systemctl start ARNESTA.service #To start arnesta service.
