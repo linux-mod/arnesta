@@ -17,6 +17,58 @@ RED='\e[93m'
 GREEN='\e[932'
 NC='\033[0m'
 
+# update packages and upgrade Ubuntu
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+sudo apt-get -y autoremove
+sudo apt-get -y install wget nano htop jq
+sudo apt-get -y install libzmq3-dev
+sudo apt-get -y install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
+sudo apt-get -y install libevent-dev
+
+sudo apt -y install software-properties-common
+sudo add-apt-repository ppa:bitcoin/bitcoin -y
+sudo apt-get -y update
+sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
+
+sudo apt-get -y install libminiupnpc-dev
+
+sudo apt-get -y install fail2ban
+sudo service fail2ban restart
+
+sudo apt-get install ufw -y
+sudo apt-get update -y
+
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow $PORT/tcp
+echo -e "${RED}"
+sudo ufw --force enable
+echo -e "${NC}"
+
+#Generating Random Password for Rabbitd JSON RPC
+rpcpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+
+#Create 2GB swap file
+if grep -q "SwapTotal" /proc/meminfo; then
+    echo -e "${GREEN}Skipping disk swap configuration...${NC} \n"
+else
+    echo -e "${RED}Creating 2GB disk swap file. \nThis may take a few minutes!${NC} \a"
+    touch /var/swap.img
+    chmod 600 swap.img
+    dd if=/dev/zero of=/var/swap.img bs=1024k count=2000
+    mkswap /var/swap.img 2> /dev/null
+    swapon /var/swap.img 2> /dev/null
+    if [ $? -eq 0 ]; then
+        echo '/var/swap.img none swap sw 0 0' >> /etc/fstab
+        echo -e "${GREEN}Swap was created successfully!${NC} \n"
+    else
+        echo -e "${RED}Operation not permitted! Optional swap was not created.${NC} \a"
+        rm /var/swap.img
+    fi
+fi
+
 
 function compile_node() {
   echo -e "THIS SCRIPT IS CREATED BY LINUX-MOD"
